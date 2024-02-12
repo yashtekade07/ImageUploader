@@ -112,41 +112,21 @@ export const updateProfilePicture = catchAsyncError(async(req,res,next)=>{
     })
 })
 
-export const forgetPassword = catchAsyncError(async(req,res,next)=>{
-    const {email}=req.body;
-    const user= await User.findOne({email}) ;
-    if(!user) return next(new ErrorHandler("User not found",400));
-    const resetToken= await user.getResetToken();
-    await user.save();
-    const url= `${process.env.FRONTEND_URL}/resetpassword/${resetToken}`; 
-    const message =`Click on the link to reset your password.${url}.
-                    If you are not requesting then please ignore`
-    await sendEmail(user.email,"CourseBundler Reset Password",message);
 
+export const upload = catchAsyncError(async(req,res,next)=>{
+    const user= await User.findById(req.user._id);
+    const file=req.file;
+    const fileUri = getDataUri(file);
+    const mycloud= await cloudinary.v2.uploader.upload(fileUri.content);
+    await cloudinary.v2.uploader.destroy(user.avatar.public_id)
+    user.uploads.push({
+        public_id:mycloud.public_id, 
+        url:mycloud.secure_url,
+    })
+    await user.save();
     res.status(200).json({
         success:true, 
-        message:"Reset Token Send Successfully",
-    })
-})
-
-export const resetPassword = catchAsyncError(async(req,res,next)=>{
-    const {token}= req.params;
-   const resetPasswordToken = crypto.createHash("sha256").update(token).digest("hex");
-   const user= await User.findOne({
-    resetPasswordToken,
-    resetPasswordExpire:{
-        $gt:Date.now(),
-    },
-   });
-
-   if(!user) return next(new ErrorHandler('Reset Token is invalid or has been expired',400))
-   user.password=req.body.password;
-   user.resetPasswordExpire=undefined;
-   user.resetPasswordToken=undefined;
-   await user.save();
-    res.status(200).json({
-        success:true,   
-        message:"Password Changed Successfully",
+        message:"Image Uploaded Successfully",
     })
 })
 

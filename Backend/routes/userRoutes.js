@@ -1,6 +1,6 @@
 import express from "express"
 import singleUpload  from "../middlewares/multer.js"
-import { changePassword, deleteMyProfile, forgetPassword, getMyProfile, login, logout, register, resetPassword, updateProfile, updateProfilePicture } from "../controllers/userController.js";
+import { changePassword, deleteMyProfile,getMyProfile, login, logout, register, updateProfile, updateProfilePicture, upload } from "../controllers/userController.js";
 import { isAutheticated } from "../middlewares/auth.js";
 const router= express.Router({});
 
@@ -12,6 +12,6 @@ router.route('/me').delete(isAutheticated,deleteMyProfile); // To Delete my Prof
 router.route('/changepassword').put(isAutheticated,changePassword); // To changePassword
 router.route('/updateprofile').put(isAutheticated,updateProfile); // To update profile
 router.route('/updateprofilepicture').put(isAutheticated,singleUpload,updateProfilePicture); // To update profile
-router.route('/forgetpassword').post(forgetPassword); //  forget password
-router.route('/resetpassword/:token').put(resetPassword); // To Reset password
+router.route('/upload').put(isAutheticated,singleUpload,upload); // To update profile
+
 export default router

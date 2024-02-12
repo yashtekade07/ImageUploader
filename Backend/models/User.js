@@ -30,6 +30,16 @@ const Schema = new mongoose.Schema({
             required:true,
         }
     },
+    uploads:[{
+        public_id:{
+            type:String,
+            required:true,
+        },
+        url:{
+            type:String,
+            required:true,
+        }}
+    ],
     CreatedAt:{
         type:Date,
         default:Date.now,
