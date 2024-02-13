@@ -22,55 +22,56 @@ const Login = () => {
   };
 
   return (
-    <Container h={'95vh'}>
-      <VStack h={'full'} justifyContent={'center'} spacing={'16'}>
-        <Heading children={'Welcome'} />
-        <form onSubmit={submitHandler} style={{ width: '100%' }}>
-          <Box my={'4'}>
-            <FormLabel htmlFor='email' children={'Email Address'} />
-            <Input
+    <div className='h-screen flex justify-center items-center'>
+      <div className='w-full max-w-md'>
+        <h1 className='text-3xl font-semibold mb-4 text-center'>Welcome</h1>
+        <form onSubmit={submitHandler}>
+          <div className='mb-4'>
+            <label htmlFor='email' className='block mb-1'>
+              Email Address
+            </label>
+            <input
               required
               id='email'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              className='w-full px-3 py-2 border rounded focus:outline-none focus:border-yellow-500'
               placeholder='abc@gmail.com'
               type='email'
-              focusBorderColor='yellow.500'
             />
-          </Box>
-          <Box my={'4'}>
-            <FormLabel htmlFor='password' children={'Password'} />
-            <Input
+          </div>
+          <div className='mb-4'>
+            <label htmlFor='password' className='block mb-1'>
+              Password
+            </label>
+            <input
               required
               id='password'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              className='w-full px-3 py-2 border rounded focus:outline-none focus:border-yellow-500'
               placeholder='Enter your password'
               type='password'
-              focusBorderColor='yellow.500'
             />
-          </Box>
-          <Box>
-            <Link to='/forgetpassword'>
-              <Button fontSize={'sm'} variant={'link'}>
-                Forget Password?
-              </Button>
-            </Link>
-          </Box>
-          <Button my={'4'} colorScheme='yellow' type='submit'>
+          </div>
+          <button
+            className='w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded mb-4'
+            type='submit'
+          >
             Login
-          </Button>
-          <Box my={'4'}>
-            New User?{''}
-            <Link to='/register'>
-              <Button colorScheme='yellow' variant={'link'}>
-                Sign Up
-              </Button>
+          </button>
+          <div className='text-center'>
+            <span className='mr-1'>New User?</span>
+            <Link
+              to='/register'
+              className='text-yellow-500 hover:text-yellow-600 font-semibold'
+            >
+              Sign Up
             </Link>
-          </Box>
+          </div>
         </form>
-      </VStack>
-    </Container>
+      </div>
+    </div>
   );
 };
 

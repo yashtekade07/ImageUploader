@@ -10,6 +10,8 @@ import Profile from "./components/Profile/Profile"
 import UpdateProfile from "./components/Profile/UpdateProfile"
 import Loader from "./components/Layout/Loader/Loader"
 import { loadUser } from "./redux/actions/user";
+import ChangePassword from "./components/Profile/ChangePassword";
+import Upload from "./components/Upload/Upload";
 function App() {
   window.addEventListener("contextmenu",e=>{
     e.preventDefault();
@@ -39,6 +41,8 @@ useEffect(()=>{
         <Route path='/updateprofile' element={<ProtectedRoute isAuthenticated={isAuthenticated}><UpdateProfile user={user}/></ProtectedRoute>}/>
         <Route path='/login' element={<ProtectedRoute isAuthenticated={!isAuthenticated} redirect='/profile'><Login /></ProtectedRoute>}/>
         <Route path='/register'element={<ProtectedRoute isAuthenticated={!isAuthenticated} redirect='/profile'><Register /></ProtectedRoute>}/> 
+        <Route path='/changepassword' element={<ProtectedRoute isAuthenticated={isAuthenticated}> <ChangePassword user={user}/></ProtectedRoute>}/>
+        <Route path='/upload' element={<ProtectedRoute isAuthenticated={isAuthenticated}> <Upload user={user}/></ProtectedRoute>}/>
       </Routes>
     </>
         )

@@ -5,7 +5,7 @@ const store=configureStore({
     reducer:{
         user:userReducer,
         profile:profileReducer,
-        iamge:imageReducer
+        image:imageReducer
     }, 
 })
 
